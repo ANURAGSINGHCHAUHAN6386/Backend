@@ -28,11 +28,23 @@ const server=http.createServer((req,res)=>{
         }
         res.end(JSON.stringify(user));
     }
+    else if(url.startsWith("/delete/") && method == "DELETE"){
+        const id = url.split("/")[2];
+        const index = userdata.findIndex((u) => u.id == id);
+        if(index==-1){
+            return res.end("data is not found");
+        }
+        userdata.splice(index, 1);
+        res.end("data deleted");
+    }
 });
 
 server.listen(3000,()=>{
     console.log("Server is running on port number 3000");
 });
+
+
+
 
 
 
